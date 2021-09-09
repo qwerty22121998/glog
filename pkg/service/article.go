@@ -11,6 +11,7 @@ import (
 
 type ArticleService interface {
 	Create(ctx context.Context, request dto.CreateArticleRequest) (*dto.Response, error)
+	FindBySlug(ctx context.Context, slug string) (*dto.Response, error)
 }
 
 type articleService struct {
@@ -42,4 +43,16 @@ func (a *articleService) Create(ctx context.Context, request dto.CreateArticleRe
 	}
 
 	return dto.Success(mapper.Article.ToDTO(articleModel)), nil
+}
+
+func (a *articleService) FindBySlug(ctx context.Context, slug string) (*dto.Response, error) {
+	article, err := a.articleRepo.FindBySlug(ctx, slug)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return nil, dto.BadRequest("article not found")
+		}
+		return nil, dto.InternalError(err)
+	}
+	articleDTO := mapper.Article.ToDTO(article)
+	return dto.Success(articleDTO), nil
 }

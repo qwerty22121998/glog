@@ -9,6 +9,7 @@ import (
 
 type ArticleController interface {
 	Create(c echo.Context) error
+	FindBySlug(c echo.Context) error
 }
 
 type articleController struct {
@@ -38,5 +39,16 @@ func (a *articleController) Create(c echo.Context) error {
 		return err
 	}
 
+	return c.JSON(http.StatusOK, resp)
+}
+
+func (a *articleController) FindBySlug(c echo.Context) error {
+	ctx := c.Request().Context()
+	slug := c.Param("slug")
+
+	resp, err := a.articleService.FindBySlug(ctx, slug)
+	if err != nil {
+		return err
+	}
 	return c.JSON(http.StatusOK, resp)
 }
