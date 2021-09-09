@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 func TestGenerateSlug(t *testing.T) {
 	assert.Equal(t, "hello-world", GenerateSlug("Hello world"))
 }

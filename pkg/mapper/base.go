@@ -9,11 +9,8 @@ type BaseMapper int
 
 var Base BaseMapper
 
-func (BaseMapper) ToDTO(base *model.BaseModel) *dto.BaseDTO {
-	if base == nil {
-		return nil
-	}
-	return &dto.BaseDTO{
+func (BaseMapper) ToDTO(base model.BaseModel) dto.BaseDTO {
+	return dto.BaseDTO{
 		ID:        base.ID,
 		CreatedAt: base.CreatedAt,
 		UpdatedAt: base.UpdatedAt,
@@ -23,11 +20,8 @@ func (BaseMapper) ToDTO(base *model.BaseModel) *dto.BaseDTO {
 	}
 }
 
-func (BaseMapper) ToModel(base *dto.BaseDTO) *model.BaseModel {
-	if base == nil {
-		return nil
-	}
-	return &model.BaseModel{
+func (BaseMapper) ToModel(base dto.BaseDTO) model.BaseModel {
+	return model.BaseModel{
 		ID:        base.ID,
 		CreatedAt: base.CreatedAt,
 		UpdatedAt: base.UpdatedAt,

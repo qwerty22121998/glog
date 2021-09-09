@@ -1,7 +1,7 @@
 package model
 
 type Article struct {
-	*BaseModel
+	BaseModel   `bson:",inline"`
 	Title       string   `bson:"title"`
 	Slug        string   `bson:"slug"`
 	Description string   `bson:"description"`

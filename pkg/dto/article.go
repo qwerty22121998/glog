@@ -3,7 +3,7 @@ package dto
 import "github.com/qwerty22121998/glog/pkg/util"
 
 type Article struct {
-	*BaseDTO
+	BaseDTO
 	Slug        string   `json:"slug"`
 	Title       string   `json:"title"`
 	Description string   `json:"description"`
@@ -12,10 +12,10 @@ type Article struct {
 }
 
 type CreateArticleRequest struct {
-	Title       string   `json:"title"`
+	Title       string   `json:"title" validate:"required"`
 	Description string   `json:"description"`
 	Tags        []string `json:"tags"`
-	Content     string   `json:"content"`
+	Content     string   `json:"content" validate:"required"`
 }
 
 func (r *CreateArticleRequest) ToDTO() *Article {
