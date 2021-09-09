@@ -11,5 +11,6 @@ func InitRoute(e *echo.Echo, controllers controller.Provider) {
 		return c.String(http.StatusOK, "pong")
 	})
 
+	e.GET("/article/:slug", controllers.Article().FindBySlug)
 	e.POST("/article", controllers.Article().Create)
 }
